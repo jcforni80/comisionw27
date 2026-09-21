@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOM</title>
+
+    <style>
+      body {
+        background-color: #1f2020;
+        color: white;
+      }
+      main {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        h1 {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <h1>🚀Browser Object Model</h1>
+    </main>
+    <footer></footer>
+    <script>
+      //   console.log("Ancho visible:", window.innerWidth, "px");
+      //   console.log("Alto visible:", window.innerHeight, "px");
+
+      window.addEventListener("resize", () => {
+        console.log(
+          `Nuevo tamaño: ${window.innerWidth} x ${window.innerHeight}`,
+        );
+      });
+
+      //Mensajes
+      //     alert("Bienvenidos a la clase!!");
+      //     const quiereContinuar = confirm("¿Desea continuar?");
+
+      //   console.log("Respuesta: " + quiereContinuar);
+
+      //   const nombre = prompt("Ingresa tu nombre");
+      //   console.log("Usuario: " + nombre);
+
+      //Location
+      console.log("URL Completa: " + location.href);
+      console.log("Dominio: " + location.hostname);
+      console.log("Ruta: " + location.pathname);
+
+      //Redireccionar a otra web
+      function redirectRolling() {
+        location.href = "https://web.rollingcodeschool.com";
+      }
+
+      function recargaWeb() {
+        location.reload();
+      }
+
+      //navigator
+      console.log("Idioma: " + navigator.language);
+
+      //Estado de la conexión
+      console.log("¿Estás en línea?: " + navigator.onLine);
+
+      //Detectar cambios de conexión
+      window.addEventListener("offline", () =>
+        alert("Perdiste la conexión!😭"),
+      );
+      window.addEventListener("online", () =>
+        alert("Conexión restablecida!😉"),
+      );
+
+      //History
+      function webNext() {
+        history.forward();
+      }
+
+      function webBack() {
+        history.back();
+      }
+
+      console.log("Páginas en el historial: " + history.length);
+
+      function inspeccionarNavegador() {
+        const confirmacion = confirm(
+          "¿Querés ver la información del navegador?",
+        );
+
+        if (confirmacion) {
+          console.clear();
+          console.log(
+            "%c=== REPORTE DEL BOM ===",
+            "color: cyan; font-weight: bold; font-size:14px",
+          );
+          console.log("Ancho de la ventana: " + window.innerWidth + "px");
+          console.log("URL actual: " + location.href);
+          console.log("Navegador en idioma: " + navigator.language);
+          console.log("Conectado a internet: ", navigator.onLine ? "Sí" : "No");
+        } else {
+          alert("Operación cancelada.");
+        }
+      }
+    </script>
+  </body>
+</html>
