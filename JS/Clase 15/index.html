@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div class="container-btn">
+        <button id="btn-mode">🌙</button>
+      </div>
+    </header>
+    <main>
+      <h1>Bienvenidos al DOM!🚀</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sint illo
+        laborum qui adipisci deserunt unde quae debitis soluta placeat, repellat
+        saepe illum modi error sequi esse assumenda, reprehenderit distinctio
+        nobis vitae ratione dolorem numquam! Perferendis laudantium quam
+        asperiores minima.
+      </p>
+      <section>
+        <h3>Tamaño de área</h3>
+        <p>
+          Tamaño del ancho del área:
+          <span id="width"></span>px
+        </p>
+      </section>
+    </main>
+    <footer></footer>
+
+    <script>
+      const changeMode = () => {
+        document.body.classList.toggle("dark-mode");
+      };
+      document.querySelector("#width").textContent = window.innerWidth;
+
+      window.addEventListener("resize", () => {
+        document.querySelector("#width").textContent = window.innerWidth;
+      });
+
+      //   document.body.addEventListener("click", (evento) => {
+      //     console.log(evento.target);
+      //     const validar = confirm("Está seguro que quiere eliminar el nodo?");
+      //     if (validar) {
+      //       evento.target.style.display = "none";
+      //     }
+      //   });
+      document.querySelector("h1").addEventListener("click", () => {
+        document.querySelector("h1").classList.toggle("titulo-grande");
+      });
+
+      document.querySelector("#btn-mode").addEventListener("click", changeMode);
+    </script>
+    <!-- <script src="./time.js"></script> -->
+  </body>
+</html>
