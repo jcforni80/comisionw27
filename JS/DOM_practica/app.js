@@ -2,7 +2,16 @@
 const productos = [
   { id: 1, title: "Pizza", icon: "🍕", price: 5000 },
   { id: 2, title: "Hamburguesa", icon: "🍔", price: 4500 },
-  { id: 3, title: "Papas", icon: "🍟", price: 2000 },
+  { id: 3, title: "Papas Fritas", icon: "🍟", price: 2000 },
+  { id: 4, title: "Hot Dog", icon: "🌭", price: 2500 },
+  { id: 5, title: "Taco", icon: "🌮", price: 3000 },
+  { id: 6, title: "Sushi", icon: "🍣", price: 8500 },
+  { id: 7, title: "Burrito", icon: "🌯", price: 4000 },
+  { id: 8, title: "Empanada", icon: "🥟", price: 1200 },
+  { id: 9, title: "Helado", icon: "🍦", price: 2200 },
+  { id: 10, title: "Donut", icon: "🍩", price: 1500 },
+  { id: 11, title: "Pasta", icon: "🍝", price: 6000 },
+  { id: 12, title: "Sándwich", icon: "🥪", price: 3500 },
 ];
 
 //variable del carrito
@@ -10,19 +19,22 @@ const carrito = [];
 
 const containerCards = document.getElementById("container-cards");
 const containerCart = document.querySelector("#container-cart");
+const inputText = document.getElementById("search-input");
 
 //generemos las tarjetas de los productos del array
-const generateCardsProducts = () => {
+const generateCardsProducts = (array = productos) => {
   //ALGORITMO
   //ENTRADA: array de productos
   //PROCESOS: Recorrer el array y por cada producto crear la tarjeta. Donde se va a renderizar
   //SALIDA: Las tarjetas renderizadas en el navegador dentro de su contenedor
+  containerCards.innerHTML = "";
 
-  productos.map((producto) => {
-    const col = document.createElement("div"); //creando un nodo
-    col.classList = "col mb-3";
-    //<div class="col"></div>
-    const card = /*HTML */ `<div class="card">
+  if (array.length > 0) {
+    array.map((producto) => {
+      const col = document.createElement("div"); //creando un nodo
+      col.classList = "col mb-3";
+      //<div class="col"></div>
+      const card = /*HTML */ `<div class="card">
               <div class="card-body">
                 <h5 class="card-title">${producto.title} ${producto.icon}</h5>
                 <p class="card-text fs-3">$${producto.price}</p>
@@ -31,9 +43,16 @@ const generateCardsProducts = () => {
                 </div>
               </div>
             </div>`;
-    col.innerHTML = card;
+      col.innerHTML = card;
+      containerCards.append(col);
+    });
+  } else {
+    const col = document.createElement("div"); //creando un nodo
+    col.classList = "col mb-3";
+    const message = `<h3 class="my-3">No hay productos para mostrar</h3>`;
+    col.innerHTML = message;
     containerCards.append(col);
-  });
+  }
 };
 
 const addCart = (idProduct) => {
@@ -79,7 +98,7 @@ const generateCardsCart = () => {
     content.classList = "row";
 
     const datos = /*HTML*/ `<div class="col fw-bold d-flex align-items-center">
-    <p>${item.icon} ${item.title} <span class="text-danger" onclick="deleteProductCart(${item.id})">x</span></p>
+    <p>${item.icon} ${item.title} <span class="text-danger pointer" onclick="deleteProductCart(${item.id})">x</span></p>
     <div class="col d-flex justify-content-end align-items-center">
     <p>$${item.price}</p>
     </div>
@@ -117,4 +136,25 @@ const deleteProductCart = (id) => {
   }
 };
 
+const filterProducts = () => {
+  //filter()
+  //Crea un nuevo array con todos elementos que coincidan con la condición
+  const filtro = productos.filter((product) =>
+    product.title.toLowerCase().includes(inputText.value.toLowerCase()),
+  );
+  generateCardsProducts(filtro);
+};
+
+//BUSCADOR V.1
+document.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  filterProducts();
+  // console.log(filtro);
+});
+
+//BUSCADOR V.2
+inputText.addEventListener("input", filterProducts);
+
 generateCardsProducts();
+
+//WEBSTORAGE
