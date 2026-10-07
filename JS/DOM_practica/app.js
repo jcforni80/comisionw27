@@ -15,11 +15,25 @@ const productos = [
 ];
 
 //variable del carrito
-const carrito = [];
+let carrito = [];
 
 const containerCards = document.getElementById("container-cards");
 const containerCart = document.querySelector("#container-cart");
 const inputText = document.getElementById("search-input");
+
+//Guardar productos del carrito en localStorage-------------------------
+const generateDataBase = () => {
+  const dataBase = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  if (dataBase.length > 0) {
+    // carrito = dataBase;❌
+    carrito = dataBase.slice(0);
+    // carrito.push("banana"); //["banana"]
+    // console.log(dataBase); // ["banana"]
+    generateCardsCart();
+  }
+};
+//-----------------------------------------------------------
 
 //generemos las tarjetas de los productos del array
 const generateCardsProducts = (array = productos) => {
@@ -55,6 +69,7 @@ const generateCardsProducts = (array = productos) => {
   }
 };
 
+//Agregar  productos al carrito
 const addCart = (idProduct) => {
   console.log(idProduct);
   //find()
@@ -64,8 +79,10 @@ const addCart = (idProduct) => {
   if (!searchProduct) {
     carrito.push(productFind);
     alert("✅Producto agregado al carrito");
+    //Guardo carrito---------------------------------------
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    //------------------------------------------------------
     generateCardsCart();
-    calcTot();
   } else {
     alert("❌El producto ya se encuentra en el carrito");
   }
@@ -91,6 +108,7 @@ SALIDA: el valor almacenado en el acumulador
   // document.getElementById("total-final").textContent = totalFinal;
 };
 
+//Generar tarjetas o info en el carrito
 const generateCardsCart = () => {
   containerCart.innerHTML = "";
   carrito.map((item) => {
@@ -117,6 +135,7 @@ const generateCardsCart = () => {
     */
     containerCart.append(content);
   });
+  calcTot();
 };
 
 const deleteProductCart = (id) => {
@@ -130,8 +149,10 @@ const deleteProductCart = (id) => {
     if (validar) {
       //método de arrays para borrar elementos
       carrito.splice(index, 1);
+      //Guardo carrito---------------------------------------
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      //------------------------------------------------------
       generateCardsCart();
-      calcTot();
     }
   }
 };
@@ -155,6 +176,6 @@ document.querySelector("form").addEventListener("submit", (event) => {
 //BUSCADOR V.2
 inputText.addEventListener("input", filterProducts);
 
+generateDataBase();
 generateCardsProducts();
-
 //WEBSTORAGE
